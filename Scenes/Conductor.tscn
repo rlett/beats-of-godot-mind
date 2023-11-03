@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bytdcjq2vrsto"]
+
+[ext_resource type="Script" path="res://Scenes/Conductor.gd" id="1_xiiy2"]
+[ext_resource type="Texture2D" uid="uid://cy8arm1wycngf" path="res://Assets/brainslot.png" id="2_40jhc"]
+
+[node name="Conductor" type="Node2D"]
+script = ExtResource("1_xiiy2")
+
+[node name="slot1" type="Sprite2D" parent="."]
+position = Vector2(513, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_40jhc")
+
+[node name="slot2" type="Sprite2D" parent="."]
+position = Vector2(823, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_40jhc")
+
+[node name="slot3" type="Sprite2D" parent="."]
+position = Vector2(1133, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_40jhc")
+
+[node name="slot4" type="Sprite2D" parent="."]
+position = Vector2(1443, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_40jhc")
+
+[node name="notes" type="Node2D" parent="."]
