@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://h5na4v2i1ve4"]
+
+[ext_resource type="Texture2D" uid="uid://cy8arm1wycngf" path="res://Assets/brainslot.png" id="1_gdch4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngo6y"]
+
+[node name="NoteHole" type="Sprite2D"]
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("1_gdch4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-5, 45)
+scale = Vector2(3, 6)
+shape = SubResource("RectangleShape2D_ngo6y")

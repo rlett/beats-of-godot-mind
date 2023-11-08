@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://j4ow75311u8k"]
+
+[ext_resource type="Script" path="res://Scripts/HitMessage.gd" id="1_rfftu"]
+[ext_resource type="Texture2D" uid="uid://d25nko2mh8l7d" path="res://Assets/perfect_msg.png" id="1_xl6uc"]
+
+[node name="HitMessage" type="Sprite2D"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_xl6uc")
+script = ExtResource("1_rfftu")

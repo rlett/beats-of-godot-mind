@@ -1,18 +1,184 @@
-[gd_scene load_steps=3 format=3 uid="uid://ef74a565ythf"]
+[gd_scene load_steps=3 format=3 uid="uid://cu36g11358jm2"]
 
-[ext_resource type="Texture2D" uid="uid://45m07k3veowv" path="res://Assets/icon.svg" id="1_nslob"]
-[ext_resource type="Script" path="res://Scripts/Button.gd" id="2_cjqvv"]
+[ext_resource type="Script" path="res://Scripts/Controller.gd" id="1_lmrb1"]
+[ext_resource type="Texture2D" uid="uid://bkghs5av377cf" path="res://Assets/brainlet.png" id="2_5xu3x"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_lmrb1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(975, 262)
-texture = ExtResource("1_nslob")
+[node name="Brainlet" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_5xu3x")
 
-[node name="Button" type="Button" parent="."]
-offset_left = 406.0
-offset_top = 161.0
-offset_right = 542.0
-offset_bottom = 297.0
-icon = ExtResource("1_nslob")
-script = ExtResource("2_cjqvv")
+[node name="SongInfo" type="Node2D" parent="."]
+visible = false
+
+[node name="BOX" type="ColorRect" parent="SongInfo"]
+offset_left = 1205.0
+offset_top = 200.0
+offset_right = 1905.0
+offset_bottom = 775.0
+color = Color(0.137255, 0.137255, 0.137255, 0.537255)
+
+[node name="InfoTitle" type="Label" parent="SongInfo"]
+offset_left = 1205.0
+offset_top = 100.0
+offset_right = 1855.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 35
+text = "Song Name"
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Loading" type="Label" parent="SongInfo"]
+visible = false
+offset_left = 1205.0
+offset_top = 200.0
+offset_right = 1905.0
+offset_bottom = 775.0
+theme_override_font_sizes/font_size = 35
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+
+[node name="PlayButton" type="Button" parent="SongInfo"]
+offset_left = 1230.0
+offset_top = 800.0
+offset_right = 1880.0
+offset_bottom = 900.0
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Play"
+
+[node name="X" type="Button" parent="SongInfo"]
+offset_left = 1830.0
+offset_top = 112.5
+offset_right = 1905.0
+offset_bottom = 203.5
+scale = Vector2(1, 0.8)
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "X"
+
+[node name="SongDetails" type="Node2D" parent="SongInfo"]
+
+[node name="HighscoreText" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 200.0
+offset_right = 1875.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 35
+text = "Highscore: "
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Highscore" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 200.0
+offset_right = 1875.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 35
+text = "0 (F)"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="NotesText" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 300.0
+offset_right = 1875.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 35
+text = "Notes: "
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Notes" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 300.0
+offset_right = 1875.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="DurationText" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 350.0
+offset_right = 1875.0
+offset_bottom = 410.0
+theme_override_font_sizes/font_size = 35
+text = "Duration:"
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Duration" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 350.0
+offset_right = 1875.0
+offset_bottom = 410.0
+theme_override_font_sizes/font_size = 35
+text = "0:00"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 1580.0
+offset_top = 940.0
+offset_right = 1880.0
+offset_bottom = 1040.0
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Settings"
+
+[node name="SongSelect" type="Node2D" parent="."]
+
+[node name="ErrorMsg" type="Label" parent="SongSelect"]
+visible = false
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 1100.0
+offset_bottom = 1000.0
+theme_override_font_sizes/font_size = 40
+text = "No tracks found.
+Something went wrong!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="SongSelect"]
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 1100.0
+offset_bottom = 1000.0
+color = Color(0.137255, 0.137255, 0.137255, 0.537255)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SongSelect"]
+custom_minimum_size = Vector2(1000, 800)
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 1100.0
+offset_bottom = 1000.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SongSelect/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 2
+
+[node name="MenuTitle" type="Label" parent="SongSelect"]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 1100.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 60
+text = "Select Song"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="SongInfo/PlayButton" to="." method="_level"]
+[connection signal="pressed" from="SongInfo/X" to="." method="_closeLevelDetails"]
+[connection signal="pressed" from="Settings" to="." method="_settings"]

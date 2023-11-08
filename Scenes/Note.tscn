@@ -1,29 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://b18vcagrbyqv7"]
+[gd_scene load_steps=4 format=3 uid="uid://dywr3hrogp2j"]
 
 [ext_resource type="Texture2D" uid="uid://bgxcu2s6ulskw" path="res://Assets/redbrain.png" id="1_2e17b"]
+[ext_resource type="Script" path="res://Scripts/Note.gd" id="2_bvuvd"]
 
-[sub_resource type="GDScript" id="GDScript_ywybu"]
-script/source = "extends Sprite2D
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngo6y"]
 
-var noteSpeed = 500
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	
-	position.y -= noteSpeed * delta
-	
-	pass
-"
-
-[node name="Note" type="Node2D"]
-position = Vector2(512, 866)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D"]
 scale = Vector2(1.7, 1.7)
 texture = ExtResource("1_2e17b")
-script = SubResource("GDScript_ywybu")
+script = ExtResource("2_bvuvd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-5, 45)
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_ngo6y")

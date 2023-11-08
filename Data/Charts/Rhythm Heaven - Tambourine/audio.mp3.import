@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dcc82tityfyh"
+path="res://.godot/imported/audio.mp3-11745f425cb3d009ad9f689960ad7724.mp3str"
+
+[deps]
+
+source_file="res://Data/Charts/Rhythm Heaven - Tambourine/audio.mp3"
+dest_files=["res://.godot/imported/audio.mp3-11745f425cb3d009ad9f689960ad7724.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

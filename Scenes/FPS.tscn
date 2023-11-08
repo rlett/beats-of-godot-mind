@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqr1msn4180jm"]
+
+[ext_resource type="Script" path="res://Scripts/FPS.gd" id="1_cd7er"]
+
+[node name="FPS Counter" type="Node2D"]
+
+[node name="FPS Counter" type="Label" parent="."]
+offset_left = 1720.0
+offset_right = 1920.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 50
+text = "0 fps"
+horizontal_alignment = 2
+script = ExtResource("1_cd7er")
