@@ -1,6 +1,6 @@
 extends Node
 
-var unpressed = load("res://Assets/brainslot.png")
+var unpressed = preload("res://Assets/brainslot.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
