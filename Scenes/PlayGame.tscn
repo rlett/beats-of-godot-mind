@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb3y22viafcb6"]
+[gd_scene load_steps=11 format=3 uid="uid://bb3y22viafcb6"]
 
 [ext_resource type="Script" path="res://Scripts/Conductor.gd" id="1_2rahi"]
 [ext_resource type="Texture2D" uid="uid://bkghs5av377cf" path="res://Assets/brainlet.png" id="2_ni1ih"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dqr1msn4180jm" path="res://Scenes/FPS.tscn" id="4_l3up1"]
 [ext_resource type="AudioStream" uid="uid://cqpuafn7joss5" path="res://Data/Charts/wndrwll/audio.mp3" id="5_evwxi"]
 [ext_resource type="AudioStream" uid="uid://1ob7dy7dgydk" path="res://Data/Audio/click.wav" id="6_ijjr5"]
+[ext_resource type="Texture2D" uid="uid://d25nko2mh8l7d" path="res://Assets/perfect_msg.png" id="7_40r0u"]
+[ext_resource type="Texture2D" uid="uid://bicnw8ykwm64w" path="res://Assets/good_msg.png" id="8_0ofiy"]
+[ext_resource type="Texture2D" uid="uid://de717ck4uq01u" path="res://Assets/okay_msg.png" id="9_ikp3m"]
+[ext_resource type="Texture2D" uid="uid://m1265kw4ajk7" path="res://Assets/miss_msg.png" id="10_h66yc"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_2rahi")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -44,7 +48,7 @@ volume_db = 1.0
 
 [node name="SoundEffects" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ijjr5")
-volume_db = 1.0
+volume_db = -10.0
 
 [node name="Score" type="Label" parent="."]
 offset_left = 50.0
@@ -63,3 +67,161 @@ offset_bottom = 250.0
 theme_override_colors/font_color = Color(0.768627, 0.768627, 0.768627, 1)
 theme_override_font_sizes/font_size = 40
 text = "High Score: 0"
+
+[node name="Vignette" type="ColorRect" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 0.666667)
+
+[node name="Countdown" type="Label" parent="."]
+visible = false
+offset_left = 760.0
+offset_top = 440.0
+offset_right = 1160.0
+offset_bottom = 580.0
+theme_override_font_sizes/font_size = 100
+text = "3"
+horizontal_alignment = 1
+
+[node name="Pause" type="Node2D" parent="."]
+visible = false
+
+[node name="Pause Text" type="Label" parent="Pause"]
+offset_left = 760.0
+offset_top = 240.0
+offset_right = 1160.0
+offset_bottom = 380.0
+theme_override_font_sizes/font_size = 100
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Pause"]
+offset_left = 810.0
+offset_top = 540.0
+offset_right = 1110.0
+offset_bottom = 640.0
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Resume"
+
+[node name="Quit" type="Button" parent="Pause"]
+offset_left = 810.0
+offset_top = 690.0
+offset_right = 1110.0
+offset_bottom = 790.0
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Quit"
+
+[node name="FinalScore" type="Node2D" parent="."]
+visible = false
+
+[node name="ProceedButton" type="Button" parent="FinalScore"]
+offset_left = 760.0
+offset_top = 940.0
+offset_right = 1160.0
+offset_bottom = 1040.0
+tooltip_text = "Load the game."
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Continue"
+
+[node name="FinalScoreText" type="Label" parent="FinalScore"]
+visible = false
+offset_left = 325.0
+offset_top = 280.0
+offset_right = 1425.0
+offset_bottom = 420.0
+theme_override_font_sizes/font_size = 100
+text = "Final Score:"
+
+[node name="LetterGrade" type="Label" parent="FinalScore"]
+visible = false
+offset_left = 1586.0
+offset_top = 241.0
+offset_right = 1786.0
+offset_bottom = 449.0
+theme_override_font_sizes/font_size = 150
+text = "C"
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="FinalScore"]
+visible = false
+offset_left = 325.0
+offset_top = 280.0
+offset_right = 1425.0
+offset_bottom = 420.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 2
+
+[node name="Perfect" type="Node2D" parent="FinalScore"]
+visible = false
+
+[node name="Perfects" type="Label" parent="FinalScore/Perfect"]
+offset_left = 960.0
+offset_top = 450.0
+offset_right = 1210.0
+offset_bottom = 536.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 2
+
+[node name="PerfectMsg" type="Sprite2D" parent="FinalScore/Perfect"]
+position = Vector2(733, 500.5)
+texture = ExtResource("7_40r0u")
+
+[node name="Good" type="Node2D" parent="FinalScore"]
+visible = false
+
+[node name="GoodMsg" type="Sprite2D" parent="FinalScore/Good"]
+position = Vector2(813, 610.5)
+texture = ExtResource("8_0ofiy")
+
+[node name="Goods" type="Label" parent="FinalScore/Good"]
+offset_left = 960.0
+offset_top = 560.0
+offset_right = 1210.0
+offset_bottom = 646.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 2
+
+[node name="Okay" type="Node2D" parent="FinalScore"]
+visible = false
+
+[node name="Okays" type="Label" parent="FinalScore/Okay"]
+offset_left = 960.0
+offset_top = 670.0
+offset_right = 1210.0
+offset_bottom = 756.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 2
+
+[node name="OkayMsg" type="Sprite2D" parent="FinalScore/Okay"]
+position = Vector2(816, 720.5)
+texture = ExtResource("9_ikp3m")
+
+[node name="Miss" type="Node2D" parent="FinalScore"]
+visible = false
+
+[node name="Misses" type="Label" parent="FinalScore/Miss"]
+offset_left = 960.0
+offset_top = 780.0
+offset_right = 1210.0
+offset_bottom = 866.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 2
+
+[node name="MissMsg" type="Sprite2D" parent="FinalScore/Miss"]
+position = Vector2(818, 830.5)
+texture = ExtResource("10_h66yc")
+
+[connection signal="pressed" from="Pause/Resume" to="." method="_pause"]
+[connection signal="pressed" from="Pause/Quit" to="." method="_quit"]
+[connection signal="pressed" from="FinalScore/ProceedButton" to="." method="_quit"]

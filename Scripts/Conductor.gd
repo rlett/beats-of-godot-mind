@@ -13,6 +13,8 @@ var score = 0
 var record
 var chart
 var path
+var hitcounts = [0, 0, 0, 0]
+var scoretimer = 0
 
 var unpressed = preload("res://Assets/brainslot.png")
 var pressed = preload("res://Assets/brainslot_pressed.png")
@@ -51,6 +53,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	scoretimer += delta
 	# increase the timer
 	if(!paused):
 		timer += delta * chart.tempo / 60
@@ -73,7 +76,8 @@ func _process(delta):
 			
 			numNote += 1
 		$Score.text = "Score: " + str(score)
-	if(timer > chart.finishBeat):
+	if(timer > chart.finishBeat && !paused):
+		paused = true
 		_songEnd()
 
 func _songEnd():
@@ -83,10 +87,43 @@ func _songEnd():
 		var recordsfile = FileAccess.open(path + "/records.json", FileAccess.WRITE_READ)
 		recordsfile.store_string(JSON.stringify(record, "\t"))
 		recordsfile.close()
+	
+	$Vignette.show()
+	$FinalScore.show()
+	$FinalScore/Miss/Misses.text = str(0)
+	$FinalScore/Miss.show()
+	await get_tree().create_timer(0.75).timeout
+	$FinalScore/Okay/Okays.text = str(hitcounts[2])
+	$FinalScore/Okay.show()
+	await get_tree().create_timer(0.75).timeout
+	$FinalScore/Good/Goods.text = str(hitcounts[1])
+	$FinalScore/Good.show()
+	await get_tree().create_timer(0.75).timeout
+	$FinalScore/Perfect/Perfects.text = str(hitcounts[0])
+	$FinalScore/Perfect.show()
+	await get_tree().create_timer(0.75).timeout
+	$FinalScore/FinalScore.show()
+	$FinalScore/FinalScoreText.show()
+	$FinalScore/FinalScore.text = str(0)
+	scoretimer = 0
+	while(scoretimer < 1):
+		$FinalScore/FinalScore.text = str(floor(score * scoretimer))
+		await get_tree().create_timer(0.05).timeout
+	$FinalScore/FinalScore.text = str(score)
+	await get_tree().create_timer(0.5).timeout
+	$FinalScore/LetterGrade.text = _findRank(score / chart.timings.size())
+	$FinalScore/LetterGrade.show()
+
+func _findRank(ratio):
+	for i in range(14):
+		if(ratio > global.numranks[i]):
+			$FinalScore/LetterGrade.add_theme_color_override("font_color", global.coloranks[i])
+			return global.ranks[i]
+	$FinalScore/LetterGrade.add_theme_color_override("font_color", Color.DIM_GRAY)
+	return "F"
+
+func _quit():
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-
-
-
 
 
 
@@ -170,24 +207,44 @@ func _processNotes(areas, slot):
 	if(mindist < 40):
 		regmsg._prepMove(slot, 0, rng.randf_range(-100, 100))
 		score += 1000
+		hitcounts[0] += 1
 	elif(mindist < 100):
 		regmsg._prepMove(slot, 1, rng.randf_range(-100, 100))
 		score += 800
+		hitcounts[1] += 1
 	elif(mindist < 160):
 		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100))
 		score += 500
+		hitcounts[2] += 1
 	else:
 		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100))
 		score += 200
+		hitcounts[2] += 1
 	score += (200 - floor(mindist))
 	areas[mindex].get_parent().queue_free()
 
 
 
 func _pause():
-	print(paused)
+	
+	if !paused:
+		$Vignette.show()
+		$Pause.show()
+		paused = true
+	else:
+		$Pause.hide()
+		$Countdown.show()
+		$Countdown.text = "3"
+		await get_tree().create_timer(1).timeout
+		$Countdown.text = "2"
+		await get_tree().create_timer(1).timeout
+		$Countdown.text = "1"
+		await get_tree().create_timer(1).timeout
+		$Countdown.hide()
+		$Vignette.hide()
+		paused = false
+	
 	var notes = $Notes.get_children()
 	for noteitem in notes:
 		noteitem._toggleMove()
-	paused = !paused
 	$Music.set_stream_paused(paused)
