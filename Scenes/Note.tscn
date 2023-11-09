@@ -9,10 +9,8 @@ scale = Vector2(1.7, 1.7)
 script = ExtResource("2_bvuvd")
 
 [node name="noteSprite" type="Sprite2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-5, 45)
