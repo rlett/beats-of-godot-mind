@@ -14,6 +14,12 @@ var record
 var chart
 var path
 
+var unpressed = preload("res://Assets/brainslot.png")
+var pressed = preload("res://Assets/brainslot_pressed.png")
+
+var note_sprite_1 = preload("res://Assets/redbrain.png")
+var note_sprite_2 = preload("res://Assets/bluebrain.png")
+
 var speed = 1000
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,6 +59,15 @@ func _process(delta):
 			#instantiate the new note and spawn it at a given xy position
 			var newNote = note.instantiate()
 			$Notes.add_child(newNote)
+			# give child correct texture
+			if chart.timings[numNote].noteID == 0:
+				newNote._set_texture(note_sprite_1)
+			if chart.timings[numNote].noteID == 1:
+				newNote._set_texture(note_sprite_2)
+			if chart.timings[numNote].noteID == 2:
+				newNote._set_texture(note_sprite_1)
+			if chart.timings[numNote].noteID == 3:
+				newNote._set_texture(note_sprite_2)
 			newNote._startUp(speed, chart.timings[numNote].noteID)
 			newNote._toggleMove()
 			
@@ -81,6 +96,9 @@ func _songEnd():
 func _unhandled_input(event):
 	if event is InputEventKey && event.pressed && !event.echo:
 		_checkPlayerInput(event.keycode)
+		
+	if event is InputEventKey:
+		_changeNoteHoleSprite(event)
 
 func _checkPlayerInput(key):
 	var areas
@@ -106,6 +124,35 @@ func _checkPlayerInput(key):
 		if areas:
 			_processNotes(areas, slot)
 
+func _changeNoteHoleSprite(keyEvent):
+	if (!paused):
+		var key = keyEvent.keycode
+		if keyEvent.pressed && !keyEvent.echo:
+			if(key == keys[0] || key == keys[4]):
+				$NoteHoles/NoteHole1/noteholesprite.texture = pressed
+				$NoteHoles/NoteHole1/noteholesprite.scale = Vector2(.9, .95)
+			elif(key == keys[1] || key == keys[5]):
+				$NoteHoles/NoteHole2/noteholesprite.texture = pressed
+				$NoteHoles/NoteHole2/noteholesprite.scale = Vector2(.9, .95)
+			elif(key == keys[2] || key == keys[6]):
+				$NoteHoles/NoteHole3/noteholesprite.texture = pressed
+				$NoteHoles/NoteHole3/noteholesprite.scale = Vector2(.9, .95)
+			elif(key == keys[3] || key == keys[7]):
+				$NoteHoles/NoteHole4/noteholesprite.texture = pressed
+				$NoteHoles/NoteHole4/noteholesprite.scale = Vector2(.9, .95)
+		elif keyEvent.pressed == false:
+			if(key == keys[0] || key == keys[4]):
+				$NoteHoles/NoteHole1/noteholesprite.texture = unpressed
+				$NoteHoles/NoteHole1/noteholesprite.scale = Vector2(1, 1)
+			elif(key == keys[1] || key == keys[5]):
+				$NoteHoles/NoteHole2/noteholesprite.texture = unpressed
+				$NoteHoles/NoteHole2/noteholesprite.scale = Vector2(1, 1)
+			elif(key == keys[2] || key == keys[6]):
+				$NoteHoles/NoteHole3/noteholesprite.texture = unpressed
+				$NoteHoles/NoteHole3/noteholesprite.scale = Vector2(1, 1)
+			elif(key == keys[3] || key == keys[7]):
+				$NoteHoles/NoteHole4/noteholesprite.texture = unpressed
+				$NoteHoles/NoteHole4/noteholesprite.scale = Vector2(1, 1)
 
 func _processNotes(areas, slot):
 	$SoundEffects.play()

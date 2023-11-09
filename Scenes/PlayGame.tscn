@@ -18,15 +18,19 @@ texture = ExtResource("2_ni1ih")
 
 [node name="NoteHole1" parent="NoteHoles" instance=ExtResource("3_0sfes")]
 position = Vector2(660, 90)
+scale = Vector2(1.9, 1.9)
 
 [node name="NoteHole2" parent="NoteHoles" instance=ExtResource("3_0sfes")]
 position = Vector2(860, 90)
+scale = Vector2(1.9, 1.9)
 
 [node name="NoteHole3" parent="NoteHoles" instance=ExtResource("3_0sfes")]
 position = Vector2(1060, 90)
+scale = Vector2(1.9, 1.9)
 
 [node name="NoteHole4" parent="NoteHoles" instance=ExtResource("3_0sfes")]
 position = Vector2(1260, 90)
+scale = Vector2(1.9, 1.9)
 
 [node name="Notes" type="Node2D" parent="."]
 
