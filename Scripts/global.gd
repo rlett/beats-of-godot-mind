@@ -13,18 +13,27 @@ var gameplay_constants = {
 }
 
 var ranks = [
-	"S+", "S", 
+	"SSS", "S+", "S", 
 	"A+", "A", "A-", 
 	"B+", "B", "B-", 
 	"C+", "C", "C-", 
 	"D+", "D", "D-"
 ]
+
 var numranks = [
-	1175, 1150, 
+	1195, 1175, 1150, 
 	1100, 1075, 1050, 
 	1000, 975, 950, 
 	900, 850, 800, 
 	700, 600, 500
+]
+
+var coloranks = [
+	Color.GOLDENROD, Color.FUCHSIA, Color.FUCHSIA,
+	Color.FOREST_GREEN, Color.FOREST_GREEN, Color.FOREST_GREEN,
+	Color.GOLD, Color.GOLD, Color.GOLD,
+	Color.ORANGE, Color.ORANGE, Color.ORANGE,
+	Color.DARK_RED, Color.DARK_RED, Color.DARK_RED,
 ]
 
 # beykinds

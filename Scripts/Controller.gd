@@ -64,6 +64,7 @@ func _updateSelectedLevel(lvl):
 		records = JSON.parse_string(FileAccess.get_file_as_string(global.commonchart + global.songpath + "/records.json"))
 		$SongInfo/SongDetails/Highscore.text = str(records.score) + " (" + _findRank(records.score / chart.timings.size()) + ")"
 	else:
+		$SongInfo/SongDetails/Highscore.add_theme_color_override("font_color", Color.WHITE)
 		$SongInfo/SongDetails/Highscore.text = "-"
 	
 	$SongInfo/Loading.hide()
@@ -79,7 +80,9 @@ func _closeLevelDetails():
 func _findRank(ratio):
 	for i in range(14):
 		if(ratio > global.numranks[i]):
+			$SongInfo/SongDetails/Highscore.add_theme_color_override("font_color", global.coloranks[i])
 			return global.ranks[i]
+	$SongInfo/SongDetails/Highscore.add_theme_color_override("font_color", Color.DIM_GRAY)
 	return "F"
 
 func _level():
