@@ -1,38 +1,67 @@
 extends Node2D
 
-var timer = -3
-var nextSpawn = 0
-var note = preload("res://Scenes/Note.tscn")
-var hitmsg = preload("res://Scenes/HitMessage.tscn")
-var rng = RandomNumberGenerator.new()
-var paused = false
-var songstarted = false
-var numNote = 0
-var keys
-var score = 0
-var record
+# File Access
 var chart
 var path
-var hitcounts = [0, 0, 0, 0]
-var scoretimer = 0
 
+# Prefab'd objects
+var note = preload("res://Scenes/Note.tscn")
+var hitmsg = preload("res://Scenes/HitMessage.tscn")
+# Prefab'd sprites
 var unpressed = preload("res://Assets/brainslot.png")
 var pressed = preload("res://Assets/brainslot_pressed.png")
 
-var note_sprite_1 = preload("res://Assets/redbrain.png")
-var note_sprite_2 = preload("res://Assets/bluebrain.png")
-
+# Related to charting
 var speed = 1000
+var timer = -1
+var numNote = 0
+# Related to scoring
+var record
+var score = 0
+var hitcounts = [0, 0, 0, 0]
+var keys
+
+# Misc
+var scoretimer = 0
+var rng = RandomNumberGenerator.new()
+
+# paused = if the song itself is paused
+var paused = false
+# songstarted = if the song has started yet
+var songstarted = false
+
+# Paths to the note holes
+var note_holes = [
+	"NoteHoles/NoteHole1",
+	"NoteHoles/NoteHole2",
+	"NoteHoles/NoteHole3",
+	"NoteHoles/NoteHole4",
+]
+
+# Note sprites as an array
+var note_sprites = [
+	preload("res://Assets/redbrain.png"),
+	preload("res://Assets/bluebrain.png"),
+]
+
+# Vectors for noteholes
+var smol = Vector2(.9, .95)
+var normal = Vector2(1.0, 1.0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	keys = global.keybinds
 	
+	
 	# Loads the general path this chart will take
+	# IF THE SONGNO IS SET, IT WILL REFERENCE THE SONG LIST ARRAY IN GLOBAL.
+	# This is a FOLDER. Chart is path + /chart.json, audio is path + audio.mp3, etc.
 	path = global.commonchart + global.songpath if global.songno == -1 else global.songs[global.songno][1]
+	
 	# Loads the chart JSON object
 	chart = JSON.parse_string(FileAccess.get_file_as_string(path + "/chart.json"))
 	
-	# Load up the highscore details.
+	# Load up the highscore details. If no record exists load default -1.
 	if(FileAccess.file_exists(path + "/records.json")):
 		record = JSON.parse_string(FileAccess.get_file_as_string(path + "/records.json"))
 		$Highscore.text = "Highscore: " + str(record.score)
@@ -42,68 +71,88 @@ func _ready():
 	
 	# Load up the music
 	$Music.stream = load(path + "/audio.mp3")
+	
 	# Wait the appropriate delay.
 	# 2 seconds (time it takes from spawn to note)
-	# 3 beats (the negative 3 for consistent delay
+	# 1 beat (the negative 1 for consistent delay)
 	# Start delay as given on the chart
-	await get_tree().create_timer(2 + (180 / chart.tempo) + chart.startDelay).timeout
+	await get_tree().create_timer(2 + (60 / chart.tempo) + chart.startDelay).timeout
 	$Music.play()
 	songstarted = true
-	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
+	# This happens every frame, oh well. This is for the final score tally
 	scoretimer += delta
-	# increase the timer
+	
+	# Increase the timer when unpaused
 	if(!paused):
+		# Convert this time into beats. TIMER CONTAINS BEAT
 		timer += delta * chart.tempo / 60
-	# check that a second has passed
+		
+		# If not done && ready to spawn note, spawn note
 		while numNote < chart.timings.size() && timer > chart.timings[numNote].beat:
 			#instantiate the new note and spawn it at a given xy position
 			var newNote = note.instantiate()
 			$Notes.add_child(newNote)
-			# give child correct texture
-			if chart.timings[numNote].noteID == 0:
-				newNote._set_texture(note_sprite_1)
-			if chart.timings[numNote].noteID == 1:
-				newNote._set_texture(note_sprite_2)
-			if chart.timings[numNote].noteID == 2:
-				newNote._set_texture(note_sprite_1)
-			if chart.timings[numNote].noteID == 3:
-				newNote._set_texture(note_sprite_2)
+			
+			# Set the texture of the note.
+			newNote._set_texture(note_sprites[int(chart.timings[numNote].noteID) % 2])
+			
+			# Initialize everything and send that bih
 			newNote._startUp(speed, chart.timings[numNote].noteID)
 			newNote._toggleMove()
 			
+			# Move to the next note
 			numNote += 1
+		# Update score
 		$Score.text = "Score: " + str(score)
+		
+	# If the game is finished, "pause" so nothing can be changed
 	if(timer > chart.finishBeat && !paused):
 		paused = true
 		_songEnd()
 
+
 func _songEnd():
-	# Overwriting the record iff the record is beaten
+	# Overwriting the record iff the record is beaten.
+	# This is done right away so that if the player hits continue immediately the score still gets saved.
 	if(score > record.score):
 		record.score = score
 		var recordsfile = FileAccess.open(path + "/records.json", FileAccess.WRITE_READ)
 		recordsfile.store_string(JSON.stringify(record, "\t"))
 		recordsfile.close()
 	
+	# Show the vignette and this entire dude
 	$Vignette.show()
 	$FinalScore.show()
-	$FinalScore/Miss/Misses.text = str(0)
+	
+	# Should this part be a loop? Yea. Tomorrow thing tbh.
+	# BAM show misses
+	$FinalScore/Miss/Misses.text = str(hitcounts[3])
 	$FinalScore/Miss.show()
 	await get_tree().create_timer(0.75).timeout
+	
+	# BAM show okays
 	$FinalScore/Okay/Okays.text = str(hitcounts[2])
 	$FinalScore/Okay.show()
 	await get_tree().create_timer(0.75).timeout
+	
+	# BAM show goods
 	$FinalScore/Good/Goods.text = str(hitcounts[1])
 	$FinalScore/Good.show()
 	await get_tree().create_timer(0.75).timeout
+	
+	# BAM show perfects
 	$FinalScore/Perfect/Perfects.text = str(hitcounts[0])
 	$FinalScore/Perfect.show()
 	await get_tree().create_timer(0.75).timeout
+	
+	# Show text that says "Final Score:" and prepare your nuts for the grand finale
 	$FinalScore/FinalScore.show()
 	$FinalScore/FinalScoreText.show()
+	
+	# Start at 0 and over the course of 1 second, total up to the actual score
 	$FinalScore/FinalScore.text = str(0)
 	scoretimer = 0
 	while(scoretimer < 1):
@@ -111,20 +160,28 @@ func _songEnd():
 		await get_tree().create_timer(0.05).timeout
 	$FinalScore/FinalScore.text = str(score)
 	await get_tree().create_timer(0.5).timeout
+	
+	# After half a second show the rank and BAM we have a thing
 	$FinalScore/LetterGrade.text = _findRank(score / chart.timings.size())
 	$FinalScore/LetterGrade.show()
 
+
+# rankle
 func _findRank(ratio):
-	for i in range(14):
+	# Very simply try to see if we got the best rank, then check the next one
+	for i in range(15):
+		# If we have a rank, set the correct color and return the right rank
+		# This could've been a global method tbh.
 		if(ratio > global.numranks[i]):
 			$FinalScore/LetterGrade.add_theme_color_override("font_color", global.coloranks[i])
 			return global.ranks[i]
 	$FinalScore/LetterGrade.add_theme_color_override("font_color", Color.DIM_GRAY)
 	return "F"
 
+
+# guess what this fucking does
 func _quit():
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-
 
 
 # -------------------------
@@ -134,67 +191,65 @@ func _unhandled_input(event):
 	if event is InputEventKey && event.pressed && !event.echo:
 		_checkPlayerInput(event.keycode)
 		
-	if event is InputEventKey:
+	if event is InputEventKey && !paused:
 		_changeNoteHoleSprite(event)
 
+
+# buton is push. handel
 func _checkPlayerInput(key):
 	var areas
 	var slot = -1
 	
+	# im pause?
 	if(key == keys[8] && songstarted):
 		_pause()
 	
 	if(!paused):
-		if(key == keys[0] || key == keys[4]):
-			areas = $NoteHoles/NoteHole1/Area2D.get_overlapping_areas()
-			slot = 0
-		elif(key == keys[1] || key == keys[5]):
-			areas = $NoteHoles/NoteHole2/Area2D.get_overlapping_areas()
-			slot = 1
-		elif(key == keys[2] || key == keys[6]):
-			areas = $NoteHoles/NoteHole3/Area2D.get_overlapping_areas()
-			slot = 2
-		elif(key == keys[3] || key == keys[7]):
-			areas = $NoteHoles/NoteHole4/Area2D.get_overlapping_areas()
-			slot = 3
+		# Loop thru all the keys, and if one is pressed, check if notes are overlapping over it.
+		# THIS PUTS PRIORITY ON THE PRIMARY KEYS
+		for i in range(8):
+			if(key == keys[i]):
+				areas = get_node(note_holes[i % 4] + "/Area2D").get_overlapping_areas()
+				slot = i % 4
+				break
 		
+		# If there are actual notes in the range, see what to do
 		if areas:
 			_processNotes(areas, slot)
 
-func _changeNoteHoleSprite(keyEvent):
-	if (!paused):
-		var key = keyEvent.keycode
-		if keyEvent.pressed && !keyEvent.echo:
-			if(key == keys[0] || key == keys[4]):
-				$NoteHoles/NoteHole1/noteholesprite.texture = pressed
-				$NoteHoles/NoteHole1/noteholesprite.scale = Vector2(.9, .95)
-			elif(key == keys[1] || key == keys[5]):
-				$NoteHoles/NoteHole2/noteholesprite.texture = pressed
-				$NoteHoles/NoteHole2/noteholesprite.scale = Vector2(.9, .95)
-			elif(key == keys[2] || key == keys[6]):
-				$NoteHoles/NoteHole3/noteholesprite.texture = pressed
-				$NoteHoles/NoteHole3/noteholesprite.scale = Vector2(.9, .95)
-			elif(key == keys[3] || key == keys[7]):
-				$NoteHoles/NoteHole4/noteholesprite.texture = pressed
-				$NoteHoles/NoteHole4/noteholesprite.scale = Vector2(.9, .95)
-		elif keyEvent.pressed == false:
-			if(key == keys[0] || key == keys[4]):
-				$NoteHoles/NoteHole1/noteholesprite.texture = unpressed
-				$NoteHoles/NoteHole1/noteholesprite.scale = Vector2(1, 1)
-			elif(key == keys[1] || key == keys[5]):
-				$NoteHoles/NoteHole2/noteholesprite.texture = unpressed
-				$NoteHoles/NoteHole2/noteholesprite.scale = Vector2(1, 1)
-			elif(key == keys[2] || key == keys[6]):
-				$NoteHoles/NoteHole3/noteholesprite.texture = unpressed
-				$NoteHoles/NoteHole3/noteholesprite.scale = Vector2(1, 1)
-			elif(key == keys[3] || key == keys[7]):
-				$NoteHoles/NoteHole4/noteholesprite.texture = unpressed
-				$NoteHoles/NoteHole4/noteholesprite.scale = Vector2(1, 1)
 
+# Updates the sprite of the note hole when it pressed :) or depressed :(
+func _changeNoteHoleSprite(keyEvent):
+	# Only one key is pressed at a time. Find it.
+	var key = keyEvent.keycode
+	if keyEvent.pressed && !keyEvent.echo:
+		# Loop thru all keys, if one is pressed, put that one down.
+		for i in range(8):
+			if(key == keys[i]):
+				var sprite = get_node(note_holes[i % 4] + "/noteholesprite")
+				sprite.texture = pressed
+				sprite.scale = smol
+				break
+	elif keyEvent.pressed == false:
+		# Loop thru all keys, if that one is no longer pressed, put that one up.
+		for i in range(8):
+			if(key == keys[i]):
+				var sprite = get_node(note_holes[i % 4] + "/noteholesprite")
+				sprite.texture = unpressed
+				sprite.scale = normal
+				break
+
+
+# Processes an input on a given slot, adds points, spawns a hitreg, and removes a note
 func _processNotes(areas, slot):
+	# play click :3
 	$SoundEffects.play()
+	
+	# Setting baselines for minimums
 	var mindist = 9001 # it's over NINE THOUSA-
 	var mindex = -1
+	
+	# Finding the closest note
 	for noteint in range(areas.size()):
 		var dist = abs(areas[noteint].get_parent().position.y - 90)
 		if dist < mindist:
@@ -204,6 +259,9 @@ func _processNotes(areas, slot):
 	# At this point in time, the closest note will be counted only.
 	var regmsg = hitmsg.instantiate()
 	$HitMessages.add_child(regmsg)
+	
+	# Do I want to make this better? Yes. Is there a way? Probably.
+	# Will I do it? Not tonight.
 	if(mindist < 40):
 		regmsg._prepMove(slot, 0, rng.randf_range(-100, 100))
 		score += 1000
@@ -220,13 +278,18 @@ func _processNotes(areas, slot):
 		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100))
 		score += 200
 		hitcounts[2] += 1
+	
+	# Add an extra bit of points based on distance
 	score += (200 - floor(mindist))
+	
+	# Kill the note.
 	areas[mindex].get_parent().queue_free()
 
 
-
+# im pause?
 func _pause():
 	
+	# Okay this part is as readable as a kids book
 	if !paused:
 		$Vignette.show()
 		$Pause.show()
@@ -244,7 +307,10 @@ func _pause():
 		$Vignette.hide()
 		paused = false
 	
+	# Go thru every note and either tell them to stop moving or start again
 	var notes = $Notes.get_children()
 	for noteitem in notes:
 		noteitem._toggleMove()
+		
+	# Either pause or unpause the music
 	$Music.set_stream_paused(paused)

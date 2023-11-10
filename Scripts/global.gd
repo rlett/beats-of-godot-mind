@@ -13,7 +13,7 @@ var gameplay_constants = {
 }
 
 var ranks = [
-	"SSS", "S+", "S", 
+	"S++", "S+", "S", 
 	"A+", "A", "A-", 
 	"B+", "B", "B-", 
 	"C+", "C", "C-", 

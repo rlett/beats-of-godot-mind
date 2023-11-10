@@ -21,7 +21,7 @@ func _prepMove(slot, type, rngnum):
 	
 	moving = true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	if(moving):
 		timer += delta
