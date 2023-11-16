@@ -4,7 +4,6 @@
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(1000, 100)
-tooltip_text = "Load the game."
 theme_override_font_sizes/font_size = 40
 action_mode = 0
 script = ExtResource("1_cil3c")

@@ -84,3 +84,6 @@ var hitsprites = [
 	preload("res://Assets/okay_msg.png"),
 	preload("res://Assets/miss_msg.png")
 ]
+
+# This is how you make a new folder
+# DirAccess.make_dir_absolute("res://Data/Charts/FartSong")

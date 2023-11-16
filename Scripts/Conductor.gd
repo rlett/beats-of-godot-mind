@@ -101,6 +101,7 @@ func _process(delta):
 			
 			# Initialize everything and send that bih
 			newNote._startUp(speed, chart.timings[numNote].noteID)
+			newNote.connect("missed", _missNote)
 			newNote._toggleMove()
 			
 			# Move to the next note
@@ -117,15 +118,23 @@ func _process(delta):
 func _songEnd():
 	# Overwriting the record iff the record is beaten.
 	# This is done right away so that if the player hits continue immediately the score still gets saved.
+	var newrecord = false
 	if(score > record.score):
 		record.score = score
 		var recordsfile = FileAccess.open(path + "/records.json", FileAccess.WRITE_READ)
 		recordsfile.store_string(JSON.stringify(record, "\t"))
 		recordsfile.close()
+		newrecord = true
 	
 	# Show the vignette and this entire dude
 	$Vignette.show()
 	$FinalScore.show()
+	$FinalScore/SongName.text = chart.name
+	
+	$NoteHoles.hide()
+	$Score.hide()
+	$Highscore.hide()
+	$"FPS Counter".hide()
 	
 	# Should this part be a loop? Yea. Tomorrow thing tbh.
 	# BAM show misses
@@ -161,9 +170,21 @@ func _songEnd():
 	$FinalScore/FinalScore.text = str(score)
 	await get_tree().create_timer(0.5).timeout
 	
-	# After half a second show the rank and BAM we have a thing
-	$FinalScore/LetterGrade.text = _findRank(score / chart.timings.size())
+	# Finding the rank the player got
+	var rank = _findRank(score / chart.timings.size())
+	
+	# If there is a next rank, show how close the player was to that
+	var nextind = global.ranks.find(rank) - 1
+	if nextind >= 0:
+		$FinalScore/NextRank.text = str((global.numranks[nextind] * chart.timings.size()) - score) + " pts\nuntil " + global.ranks[nextind]
+		$FinalScore/NextRank.show()
+	
+	# Show the rank
+	$FinalScore/LetterGrade.text = rank
 	$FinalScore/LetterGrade.show()
+	
+	if(newrecord):
+		$FinalScore/NewRecord.show()
 
 
 # rankle
@@ -193,6 +214,13 @@ func _unhandled_input(event):
 		
 	if event is InputEventKey && !paused:
 		_changeNoteHoleSprite(event)
+
+func _missNote(x):
+	var regmsg = hitmsg.instantiate()
+	$HitMessages.add_child(regmsg)
+	regmsg._prepMove(x, 3, rng.randf_range(-100, 100))
+	score = max(score - 500, 0)
+	hitcounts[3] += 1
 
 
 # buton is push. handel
