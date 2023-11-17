@@ -239,11 +239,13 @@ func _checkPlayerInput(key):
 			if(key == keys[i]):
 				areas = get_node(note_holes[i % 4] + "/Area2D").get_overlapping_areas()
 				slot = i % 4
-				break
+				if areas:
+					_processNotes(areas, slot)
+				#break
 		
 		# If there are actual notes in the range, see what to do
-		if areas:
-			_processNotes(areas, slot)
+		#if areas:
+		#	_processNotes(areas, slot)
 
 
 # Updates the sprite of the note hole when it pressed :) or depressed :(
@@ -257,7 +259,7 @@ func _changeNoteHoleSprite(keyEvent):
 				var sprite = get_node(note_holes[i % 4] + "/noteholesprite")
 				sprite.texture = pressed
 				sprite.scale = smol
-				break
+				#break
 	elif keyEvent.pressed == false:
 		# Loop thru all keys, if that one is no longer pressed, put that one up.
 		for i in range(8):
@@ -265,7 +267,7 @@ func _changeNoteHoleSprite(keyEvent):
 				var sprite = get_node(note_holes[i % 4] + "/noteholesprite")
 				sprite.texture = unpressed
 				sprite.scale = normal
-				break
+				#break
 
 
 # Processes an input on a given slot, adds points, spawns a hitreg, and removes a note

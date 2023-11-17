@@ -12,12 +12,13 @@ texture = ExtResource("2_5xu3x")
 
 [node name="SongInfo" type="Node2D" parent="."]
 visible = false
+position = Vector2(-65, 0)
 
 [node name="BOX" type="ColorRect" parent="SongInfo"]
 offset_left = 1205.0
 offset_top = 200.0
 offset_right = 1905.0
-offset_bottom = 775.0
+offset_bottom = 750.0
 color = Color(0.137255, 0.137255, 0.137255, 0.537255)
 
 [node name="InfoTitle" type="Label" parent="SongInfo"]
@@ -43,10 +44,10 @@ vertical_alignment = 1
 justification_flags = 162
 
 [node name="PlayButton" type="Button" parent="SongInfo"]
-offset_left = 1230.0
-offset_top = 800.0
-offset_right = 1880.0
-offset_bottom = 900.0
+offset_left = 1205.0
+offset_top = 775.0
+offset_right = 1905.0
+offset_bottom = 875.0
 tooltip_text = "Play the selected song."
 theme_override_font_sizes/font_size = 60
 action_mode = 0
@@ -129,16 +130,28 @@ vertical_alignment = 2
 justification_flags = 162
 
 [node name="Settings" type="Button" parent="."]
-offset_left = 1580.0
-offset_top = 940.0
-offset_right = 1880.0
-offset_bottom = 1040.0
+offset_left = 1515.0
+offset_top = 900.0
+offset_right = 1840.0
+offset_bottom = 1000.0
 tooltip_text = "seting menu :3"
 theme_override_font_sizes/font_size = 60
 action_mode = 0
 text = "Settings"
 
+[node name="OtherButton" type="Button" parent="."]
+visible = false
+offset_left = 1140.0
+offset_top = 900.0
+offset_right = 1465.0
+offset_bottom = 1000.0
+tooltip_text = "seting menu :3"
+theme_override_font_sizes/font_size = 60
+action_mode = 0
+text = "Sumthin"
+
 [node name="SongSelect" type="Node2D" parent="."]
+position = Vector2(-25, 0)
 
 [node name="ErrorMsg" type="Label" parent="SongSelect"]
 visible = false
@@ -182,3 +195,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="SongInfo/PlayButton" to="." method="_level"]
 [connection signal="pressed" from="SongInfo/X" to="." method="_closeLevelDetails"]
 [connection signal="pressed" from="Settings" to="." method="_settings"]
+[connection signal="pressed" from="OtherButton" to="." method="_settings"]
