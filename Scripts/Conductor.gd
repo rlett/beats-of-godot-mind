@@ -1,6 +1,7 @@
 extends Node2D
 
 # File Access
+var songname
 var chart
 var path
 
@@ -56,13 +57,19 @@ func _ready():
 	# Loads the general path this chart will take
 	# IF THE SONGNO IS SET, IT WILL REFERENCE THE SONG LIST ARRAY IN GLOBAL.
 	# This is a FOLDER. Chart is path + /chart.json, audio is path + audio.mp3, etc.
-	path = global.commonchart + global.songpath if global.songno == -1 else global.songs[global.songno][1]
+	songname = global.songpath if global.songno == -1 else global.songs[global.songno][1]
+	path = global.commonchart + songname
 	
 	# Loads the chart JSON object
 	chart = JSON.parse_string(FileAccess.get_file_as_string(path + "/chart.json"))
 	
 	# Load up the highscore details. If no record exists load default -1.
-	if(FileAccess.file_exists(path + "/records.json")):
+	if(global.osvers && global.tempsongnames.has(songname)):
+		var i = global.tempsongnames.find(songname)
+		record = {"score": global.tempsongscores[i]}
+		$Highscore.text = "Highscore: " + str(record.score)
+		$Highscore.show()
+	elif(FileAccess.file_exists(path + "/records.json")):
 		record = JSON.parse_string(FileAccess.get_file_as_string(path + "/records.json"))
 		$Highscore.text = "Highscore: " + str(record.score)
 		$Highscore.show()
@@ -121,9 +128,17 @@ func _songEnd():
 	var newrecord = false
 	if(score > record.score):
 		record.score = score
-		var recordsfile = FileAccess.open(path + "/records.json", FileAccess.WRITE_READ)
-		recordsfile.store_string(JSON.stringify(record, "\t"))
-		recordsfile.close()
+		if(global.osvers):
+			var i = global.tempsongnames.find(songname)
+			if(i != -1):
+				global.tempsongscores[i] = record.score
+			else:
+				global.tempsongnames.push_back(songname)
+				global.tempsongscores.push_back(record.score)
+		else:
+			var recordsfile = FileAccess.open(path + "/records.json", FileAccess.WRITE_READ)
+			recordsfile.store_string(JSON.stringify(record, "\t"))
+			recordsfile.close()
 		newrecord = true
 	
 	# Show the vignette and this entire dude
@@ -184,7 +199,7 @@ func _songEnd():
 	$FinalScore/LetterGrade.show()
 	
 	if(newrecord):
-		$FinalScore/NewRecord.show()
+		$FinalScore/HighScore.show()
 
 
 # rankle

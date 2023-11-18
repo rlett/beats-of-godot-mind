@@ -41,16 +41,20 @@ func _updateSelectedLevel(lvl):
 	$SongInfo/Loading.show()
 	
 	# Add a little delay to make the viewer feel more like it's loading
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.1).timeout
 	
 	# Actually load the details
 	var chart = JSON.parse_string(FileAccess.get_file_as_string(global.commonchart + global.songpath + "/chart.json"))
 	$SongInfo/SongDetails/Notes.text = str(chart.timings.size())
 	var duration = int(floor(60 * chart.finishBeat / chart.tempo))
-	$SongInfo/SongDetails/Duration.text = (str(duration / 60) + ":" + "%02d") % (duration % 60)
+	$SongInfo/SongDetails/Duration.text = (str(floor(duration / 60.0)) + ":" + "%02d") % (duration % 60)
 	
+		
 	# Is there a record? Put that bih on screen.
-	if(FileAccess.file_exists(global.commonchart + global.songpath + "/records.json")):
+	if(global.osvers && global.tempsongnames.has(global.songpath)):
+		var i = global.tempsongnames.find(global.songpath)
+		$SongInfo/SongDetails/Highscore.text = str(global.tempsongscores[i]) + " (" + _findRank(global.tempsongscores[i] / chart.timings.size()) + ")"
+	elif(FileAccess.file_exists(global.commonchart + global.songpath + "/records.json")):
 		var records = JSON.parse_string(FileAccess.get_file_as_string(global.commonchart + global.songpath + "/records.json"))
 		$SongInfo/SongDetails/Highscore.text = str(records.score) + " (" + _findRank(records.score / chart.timings.size()) + ")"
 	else:

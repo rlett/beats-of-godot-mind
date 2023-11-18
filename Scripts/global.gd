@@ -1,5 +1,8 @@
 extends Node
 
+# What version are you playing on?
+var osvers = ""
+
 # Common path to all charts
 var commonchart = "res://Data/Charts/"
 
@@ -84,6 +87,14 @@ var hitsprites = [
 	preload("res://Assets/okay_msg.png"),
 	preload("res://Assets/miss_msg.png")
 ]
+
+func _ready():
+	# Set whether or not we playing on web
+	osvers = OS.get_name() == "Web"
+
+# Will store the records for this instance if on web.
+var tempsongnames = []
+var tempsongscores = []
 
 # This is how you make a new folder
 # DirAccess.make_dir_absolute("res://Data/Charts/FartSong")
