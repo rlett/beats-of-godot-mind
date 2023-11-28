@@ -1,10 +1,16 @@
 {
 	"name": "Borderline Forever",
-	"difficulty": "Medium",
-	"startDelay": 0.425,
-	"tempo": 130,
-	"finishBeat": 300,
+	"artist": "Hyper Potions",
+	
+	"editable": 0,
+	
 	"clip": "Audio/BorderlineForeverBOM",
+	"tempo": 130,
+	"startDelay": 0.425,
+	"finishBeat": 300,
+	
+	"difficulty": "Medium",
+	
 	"timings": [
 		
 		{"beat": 5.0, "noteID": 2},

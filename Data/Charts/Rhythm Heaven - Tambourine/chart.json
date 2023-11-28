@@ -1,10 +1,16 @@
 {
 	"name": "Rhythm Heaven - Tambourine",
-	"difficulty": "Easy",
-	"startDelay": -0.125,
-	"tempo": 149,
-	"finishBeat": 185,
+	"artist": "Nintendo",
+	
+	"editable": 0,
+	
 	"clip": "Audio/rhythm-heaven-fever-tambourine-perfect",
+	"tempo": 149,
+	"startDelay": -0.125,
+	"finishBeat": 185,
+	
+	"difficulty": "Easy",
+	
 	"timings": [
 		{"beat": 17.0, "noteID": 0},
 		{"beat": 18.0, "noteID": 0},

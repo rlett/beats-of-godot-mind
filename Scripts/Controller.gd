@@ -8,6 +8,7 @@ var songbutt = preload("res://Scenes/songButton.tscn")
 
 # Load on start
 func _ready():
+	$SongInfo.hide()
 	_generateSongList()
 
 
@@ -48,6 +49,7 @@ func _updateSelectedLevel(lvl):
 	$SongInfo/SongDetails/Notes.text = str(chart.timings.size())
 	var duration = int(floor(60 * chart.finishBeat / chart.tempo))
 	$SongInfo/SongDetails/Duration.text = (str(floor(duration / 60.0)) + ":" + "%02d") % (duration % 60)
+	$SongInfo/SongDetails/Artist.text = chart.artist
 	
 		
 	# Is there a record? Put that bih on screen.

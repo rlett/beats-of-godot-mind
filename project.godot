@@ -27,6 +27,11 @@ window/size/viewport_height=1080
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
+[gui]
+
+theme/default_theme_scale=2.5
+theme/custom_font="res://Assets/VT323-Regular.ttf"
+
 [input]
 
 Right={

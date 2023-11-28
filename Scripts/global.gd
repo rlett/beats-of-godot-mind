@@ -24,7 +24,7 @@ var ranks = [
 ]
 
 var numranks = [
-	1195, 1175, 1150, 
+	1190, 1175, 1150, 
 	1100, 1075, 1050, 
 	1000, 975, 950, 
 	900, 850, 800, 
@@ -57,6 +57,11 @@ var keybinds = [
 	KEY_ESCAPE
 ]
 
+var settings = {
+	# Note speed. Straightforward, yeah?
+	"noteSpeed" = 1.0
+}
+
 # For silly funny time
 var funsettings = {
 	# Adds a little craziness to the hitreg messages.
@@ -66,6 +71,9 @@ var funsettings = {
 	# Changes how long the hitreg messages live (in seconds).
 	# Default: 1.5
 	"hitreglifespan" = 1.5,
+	
+	# Show the number of points gained instead of text
+	"hitregshowpts" = false,
 }
 
 
@@ -81,11 +89,29 @@ var songs = [
 ]
 
 # I makea deez global for less F-fart
-var hitsprites = [
-	preload("res://Assets/perfect_msg.png"),
-	preload("res://Assets/good_msg.png"),
-	preload("res://Assets/okay_msg.png"),
-	preload("res://Assets/miss_msg.png")
+var hitregtext = [
+	#preload("res://Assets/perfect_msg.png"),
+	#preload("res://Assets/good_msg.png"),
+	#preload("res://Assets/okay_msg.png"),
+	#preload("res://Assets/miss_msg.png"),
+	"Perfect!",
+	"Good",
+	"Okay",
+	"Miss",
+]
+
+var hitregcolors = [
+	# Primary colors
+	0x008000FF,
+	0x364FFFFF,
+	0xFFBC00FF,
+	0xFF0000FF,
+	
+	# Secondary (shadow) colors
+	0x002000FF,
+	0x020030FF,
+	0x2E1F00FF,
+	0x200000FF,
 ]
 
 func _ready():

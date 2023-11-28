@@ -17,7 +17,7 @@ offset_top = 940.0
 offset_right = 340.0
 offset_bottom = 1040.0
 tooltip_text = "Load the game."
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 75
 action_mode = 0
 text = "Back"
 
@@ -28,7 +28,13 @@ offset_left = 73.0
 offset_top = 300.0
 offset_right = 473.0
 offset_bottom = 400.0
-theme_override_font_sizes/font_size = 45
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 60
 text = "Primary Key"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -38,7 +44,13 @@ offset_left = 73.0
 offset_top = 500.0
 offset_right = 473.0
 offset_bottom = 600.0
-theme_override_font_sizes/font_size = 45
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 60
 text = "Secondary Key"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -56,14 +68,14 @@ offset_left = 55.0
 offset_top = 300.0
 offset_right = 235.0
 offset_bottom = 400.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Secondary1" type="Button" parent="NoteKeybinds/Note1"]
 offset_left = 55.0
 offset_top = 500.0
 offset_right = 235.0
 offset_bottom = 600.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Note2" type="Node2D" parent="NoteKeybinds"]
 position = Vector2(700, 0)
@@ -78,14 +90,14 @@ offset_left = 55.0
 offset_top = 300.0
 offset_right = 235.0
 offset_bottom = 400.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Secondary1" type="Button" parent="NoteKeybinds/Note2"]
 offset_left = 55.0
 offset_top = 500.0
 offset_right = 235.0
 offset_bottom = 600.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Note3" type="Node2D" parent="NoteKeybinds"]
 position = Vector2(900, 0)
@@ -100,14 +112,14 @@ offset_left = 55.0
 offset_top = 300.0
 offset_right = 235.0
 offset_bottom = 400.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Secondary1" type="Button" parent="NoteKeybinds/Note3"]
 offset_left = 55.0
 offset_top = 500.0
 offset_right = 235.0
 offset_bottom = 600.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Note4" type="Node2D" parent="NoteKeybinds"]
 position = Vector2(1100, 0)
@@ -122,14 +134,120 @@ offset_left = 55.0
 offset_top = 300.0
 offset_right = 235.0
 offset_bottom = 400.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
 
 [node name="Secondary1" type="Button" parent="NoteKeybinds/Note4"]
 offset_left = 55.0
 offset_top = 500.0
 offset_right = 235.0
 offset_bottom = 600.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 60
+
+[node name="NoteSpeedLabel" type="Label" parent="."]
+offset_left = 73.0
+offset_top = 700.0
+offset_right = 473.0
+offset_bottom = 800.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 60
+text = "Note Speed"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NoteSpeed" type="OptionButton" parent="."]
+offset_left = 555.0
+offset_top = 700.0
+offset_right = 735.0
+offset_bottom = 800.0
+theme_override_font_sizes/font_size = 70
+item_count = 6
+selected = 1
+popup/item_0/text = "75%"
+popup/item_0/id = 0
+popup/item_1/text = "100%"
+popup/item_1/id = 1
+popup/item_2/text = "125%"
+popup/item_2/id = 2
+popup/item_3/text = "150%"
+popup/item_3/id = 3
+popup/item_4/text = "175%"
+popup/item_4/id = 4
+popup/item_5/text = "200%"
+popup/item_5/id = 5
+
+[node name="ShowPoints" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 900.0
+offset_top = 700.0
+offset_right = 940.0
+offset_bottom = 740.0
+
+[node name="CheckBox" type="CheckButton" parent="ShowPoints"]
+layout_mode = 0
+offset_right = 670.0
+offset_bottom = 100.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 60
+text = "Show points gained on hit"
+
+[node name="CrazyFactor" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1150.0
+offset_top = 730.0
+offset_right = 1190.0
+offset_bottom = 770.0
+
+[node name="CrazyLabel" type="Label" parent="CrazyFactor"]
+layout_mode = 0
+offset_left = -450.0
+offset_top = -30.0
+offset_right = -50.0
+offset_bottom = 70.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 60
+text = "Test"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CrazyValue" type="Label" parent="CrazyFactor"]
+layout_mode = 0
+offset_top = -108.0
+offset_right = 500.0
+offset_bottom = -8.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 60
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CrazySlider" type="HSlider" parent="CrazyFactor"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 40.0
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
+exp_edit = true
 
 [connection signal="pressed" from="Button" to="." method="_back"]
 [connection signal="pressed" from="NoteKeybinds/Note1/Primary1" to="." method="_setKey" binds= [0]]
@@ -140,3 +258,6 @@ theme_override_font_sizes/font_size = 50
 [connection signal="pressed" from="NoteKeybinds/Note3/Secondary1" to="." method="_setKey" binds= [6]]
 [connection signal="pressed" from="NoteKeybinds/Note4/Primary1" to="." method="_setKey" binds= [3]]
 [connection signal="pressed" from="NoteKeybinds/Note4/Secondary1" to="." method="_setKey" binds= [7]]
+[connection signal="item_selected" from="NoteSpeed" to="." method="_changeSpeed"]
+[connection signal="toggled" from="ShowPoints/CheckBox" to="." method="_toggleShowPts"]
+[connection signal="value_changed" from="CrazyFactor/CrazySlider" to="." method="_changeCrazy"]

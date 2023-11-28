@@ -4,6 +4,6 @@
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(1000, 100)
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 action_mode = 0
 script = ExtResource("1_cil3c")

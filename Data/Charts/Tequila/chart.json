@@ -1,10 +1,16 @@
 {
 	"name": "Tequila",
-	"difficulty": "Tequila",
-	"startDelay": 0,
-	"tempo": 180,
-	"finishBeat": 400,
+	"artist": "The Charms",
+	
+	"editable": 0,
+	
 	"clip": "Audio/rhythm-heaven-fever-tambourine-perfect",
+	"tempo": 180,
+	"startDelay": 0,
+	"finishBeat": 400,
+	
+	"difficulty": "Tequila",
+	
 	"timings": [
 		{"beat": 156.0, "noteID": 1},
 		{"beat": 285.0, "noteID": 1},

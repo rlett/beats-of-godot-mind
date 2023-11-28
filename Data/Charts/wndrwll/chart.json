@@ -1,10 +1,16 @@
 {
 	"name": "wndrwll",
-	"difficulty": "Medium",
-	"startDelay": 0,
-	"tempo": 87,
-	"finishBeat": 100,
+	"artist": "Neil Cicirega",
+	
+	"editable": 0,
+	
 	"clip": "Audio/wndrwll",
+	"tempo": 87,
+	"startDelay": 0,
+	"finishBeat": 100,
+	
+	"difficulty": "Medium",
+	
 	"timings": [
 		{"beat": 8.0, "noteID": 0},
 		{"beat": 9.0, "noteID": 0},

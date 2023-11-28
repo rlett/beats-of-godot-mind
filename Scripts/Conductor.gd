@@ -39,6 +39,14 @@ var note_holes = [
 	"NoteHoles/NoteHole4",
 ]
 
+# Paths to the hit count messages
+var hit_count_msgs = [
+	"FinalScore/Miss",
+	"FinalScore/Okay",
+	"FinalScore/Good",
+	"FinalScore/Perfect",
+]
+
 # Note sprites as an array
 var note_sprites = [
 	preload("res://Assets/redbrain.png"),
@@ -52,7 +60,7 @@ var normal = Vector2(1.0, 1.0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	keys = global.keybinds
-	
+	speed = 1000 * global.settings.noteSpeed
 	
 	# Loads the general path this chart will take
 	# IF THE SONGNO IS SET, IT WILL REFERENCE THE SONG LIST ARRAY IN GLOBAL.
@@ -146,31 +154,22 @@ func _songEnd():
 	$FinalScore.show()
 	$FinalScore/SongName.text = chart.name
 	
+	# Hide background elements
 	$NoteHoles.hide()
 	$Score.hide()
 	$Highscore.hide()
 	$"FPS Counter".hide()
 	
 	# Should this part be a loop? Yea. Tomorrow thing tbh.
-	# BAM show misses
-	$FinalScore/Miss/Misses.text = str(hitcounts[3])
-	$FinalScore/Miss.show()
-	await get_tree().create_timer(0.75).timeout
-	
-	# BAM show okays
-	$FinalScore/Okay/Okays.text = str(hitcounts[2])
-	$FinalScore/Okay.show()
-	await get_tree().create_timer(0.75).timeout
-	
-	# BAM show goods
-	$FinalScore/Good/Goods.text = str(hitcounts[1])
-	$FinalScore/Good.show()
-	await get_tree().create_timer(0.75).timeout
-	
-	# BAM show perfects
-	$FinalScore/Perfect/Perfects.text = str(hitcounts[0])
-	$FinalScore/Perfect.show()
-	await get_tree().create_timer(0.75).timeout
+	# I did it :3
+	for i in range(4):
+		get_node(hit_count_msgs[i] + "/Value").text = str(hitcounts[3 - i])
+		var hittext = get_node(hit_count_msgs[i] + "/Text")
+		hittext.set("theme_override_colors/font_color", global.hitregcolors[3 - i])
+		hittext.set("theme_override_colors/font_shadow_color", global.hitregcolors[7 - i])
+		hittext.set("theme_override_colors/font_outline_color", global.hitregcolors[7 - i])
+		get_node(hit_count_msgs[i]).show()
+		await get_tree().create_timer(0.75).timeout
 	
 	# Show text that says "Final Score:" and prepare your nuts for the grand finale
 	$FinalScore/FinalScore.show()
@@ -233,7 +232,7 @@ func _unhandled_input(event):
 func _missNote(x):
 	var regmsg = hitmsg.instantiate()
 	$HitMessages.add_child(regmsg)
-	regmsg._prepMove(x, 3, rng.randf_range(-100, 100))
+	regmsg._prepMove(x, 3, rng.randf_range(-100, 100), -500)
 	score = max(score - 500, 0)
 	hitcounts[3] += 1
 
@@ -305,22 +304,25 @@ func _processNotes(areas, slot):
 	var regmsg = hitmsg.instantiate()
 	$HitMessages.add_child(regmsg)
 	
+	# Modify the distance based off of note speed, to functionally make it identical
+	mindist /= global.settings.noteSpeed
+	
 	# Do I want to make this better? Yes. Is there a way? Probably.
 	# Will I do it? Not tonight.
 	if(mindist < 40):
-		regmsg._prepMove(slot, 0, rng.randf_range(-100, 100))
+		regmsg._prepMove(slot, 0, rng.randf_range(-100, 100), 1200 - floor(mindist))
 		score += 1000
 		hitcounts[0] += 1
 	elif(mindist < 100):
-		regmsg._prepMove(slot, 1, rng.randf_range(-100, 100))
+		regmsg._prepMove(slot, 1, rng.randf_range(-100, 100), 1000 - floor(mindist))
 		score += 800
 		hitcounts[1] += 1
 	elif(mindist < 160):
-		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100))
+		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100), 700 - floor(mindist))
 		score += 500
 		hitcounts[2] += 1
 	else:
-		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100))
+		regmsg._prepMove(slot, 2, rng.randf_range(-100, 100), 400 - floor(mindist))
 		score += 200
 		hitcounts[2] += 1
 	

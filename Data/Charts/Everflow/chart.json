@@ -1,10 +1,16 @@
 {
 	"name": "Everflow",
-	"difficulty": "Easy",
-	"startDelay": -0.1,
-	"tempo": 80,
-	"finishBeat": 80,
+	"artist": "Konq",
+	
+	"editable": 0,
+	
 	"clip": "Audio/Everflow",
+	"tempo": 80,
+	"startDelay": -0.1,
+	"finishBeat": 80,
+	
+	"difficulty": "Easy",
+	
 	"timings": [
 		{"beat": 1.0, "noteID": 0},
 		{"beat": 2.0, "noteID": 2},

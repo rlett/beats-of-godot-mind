@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://j4ow75311u8k"]
+[gd_scene load_steps=2 format=3 uid="uid://j4ow75311u8k"]
 
 [ext_resource type="Script" path="res://Scripts/HitMessage.gd" id="1_rfftu"]
-[ext_resource type="Texture2D" uid="uid://d25nko2mh8l7d" path="res://Assets/perfect_msg.png" id="1_xl6uc"]
 
-[node name="HitMessage" type="Sprite2D"]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_xl6uc")
+[node name="Label" type="Label"]
+offset_left = -300.0
+offset_top = -150.0
+offset_right = 300.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0.211765, 0.309804, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.00784314, 0, 0.188235, 1)
+theme_override_colors/font_outline_color = Color(0.00784314, 0, 0.188235, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 65
+text = "Miss"
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("1_rfftu")

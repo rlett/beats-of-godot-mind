@@ -11,7 +11,6 @@ position = Vector2(960, 540)
 texture = ExtResource("2_5xu3x")
 
 [node name="SongInfo" type="Node2D" parent="."]
-visible = false
 position = Vector2(-65, 0)
 
 [node name="BOX" type="ColorRect" parent="SongInfo"]
@@ -26,7 +25,13 @@ offset_left = 1205.0
 offset_top = 100.0
 offset_right = 1855.0
 offset_bottom = 200.0
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/shadow_offset_y = 7
+theme_override_constants/outline_size = 7
+theme_override_constants/shadow_outline_size = 7
+theme_override_font_sizes/font_size = 50
 text = "Song Name"
 vertical_alignment = 2
 justification_flags = 162
@@ -49,7 +54,7 @@ offset_top = 775.0
 offset_right = 1905.0
 offset_bottom = 875.0
 tooltip_text = "Play the selected song."
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 75
 action_mode = 0
 text = "Play"
 
@@ -71,7 +76,14 @@ offset_left = 1225.0
 offset_top = 200.0
 offset_right = 1875.0
 offset_bottom = 260.0
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_color = Color(1, 0.984314, 0.956863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 45
 text = "Highscore: "
 vertical_alignment = 2
 justification_flags = 162
@@ -81,7 +93,7 @@ offset_left = 1225.0
 offset_top = 200.0
 offset_right = 1875.0
 offset_bottom = 260.0
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 45
 text = "0 (F)"
 horizontal_alignment = 2
 vertical_alignment = 2
@@ -89,20 +101,26 @@ justification_flags = 162
 
 [node name="NotesText" type="Label" parent="SongInfo/SongDetails"]
 offset_left = 1225.0
-offset_top = 300.0
+offset_top = 400.0
 offset_right = 1875.0
-offset_bottom = 360.0
-theme_override_font_sizes/font_size = 35
+offset_bottom = 460.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 45
 text = "Notes: "
 vertical_alignment = 2
 justification_flags = 162
 
 [node name="Notes" type="Label" parent="SongInfo/SongDetails"]
 offset_left = 1225.0
-offset_top = 300.0
+offset_top = 400.0
 offset_right = 1875.0
-offset_bottom = 360.0
-theme_override_font_sizes/font_size = 35
+offset_bottom = 460.0
+theme_override_font_sizes/font_size = 45
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
@@ -113,7 +131,13 @@ offset_left = 1225.0
 offset_top = 350.0
 offset_right = 1875.0
 offset_bottom = 410.0
-theme_override_font_sizes/font_size = 35
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 45
 text = "Duration:"
 vertical_alignment = 2
 justification_flags = 162
@@ -123,11 +147,41 @@ offset_left = 1225.0
 offset_top = 350.0
 offset_right = 1875.0
 offset_bottom = 410.0
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 45
 text = "0:00"
 horizontal_alignment = 2
 vertical_alignment = 2
 justification_flags = 162
+
+[node name="ArtistText" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1225.0
+offset_top = 300.0
+offset_right = 1875.0
+offset_bottom = 360.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 45
+text = "Artist:"
+vertical_alignment = 2
+justification_flags = 162
+
+[node name="Artist" type="Label" parent="SongInfo/SongDetails"]
+offset_left = 1550.0
+offset_top = 300.0
+offset_right = 1875.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 45
+text = "Adele"
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 1
+justification_flags = 162
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="Settings" type="Button" parent="."]
 offset_left = 1515.0
@@ -135,7 +189,7 @@ offset_top = 900.0
 offset_right = 1840.0
 offset_bottom = 1000.0
 tooltip_text = "seting menu :3"
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 75
 action_mode = 0
 text = "Settings"
 
@@ -188,7 +242,13 @@ offset_left = 100.0
 offset_top = 100.0
 offset_right = 1100.0
 offset_bottom = 200.0
-theme_override_font_sizes/font_size = 60
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 75
 text = "Select Song"
 horizontal_alignment = 1
 
