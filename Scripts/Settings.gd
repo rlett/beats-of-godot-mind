@@ -41,7 +41,7 @@ func _unhandled_input(event):
 
 # fucking guess what this do
 func _back():
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	get_tree().change_scene_to_file(global.prevScene)
 
 func _setKey(key):
 	selectedKey = key

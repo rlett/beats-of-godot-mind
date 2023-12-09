@@ -1,30 +1,30 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu36g11358jm2"]
 
-[ext_resource type="Script" path="res://Scripts/Controller.gd" id="1_lmrb1"]
-[ext_resource type="Texture2D" uid="uid://bkghs5av377cf" path="res://Assets/brainlet.png" id="2_5xu3x"]
+[ext_resource type="Script" path="res://Scripts/Controller.gd" id="1_4m5vy"]
+[ext_resource type="Texture2D" uid="uid://bkghs5av377cf" path="res://Assets/brainlet.png" id="2_qvbfk"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_lmrb1")
+script = ExtResource("1_4m5vy")
 
 [node name="Brainlet" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
-texture = ExtResource("2_5xu3x")
+texture = ExtResource("2_qvbfk")
 
 [node name="SongInfo" type="Node2D" parent="."]
 position = Vector2(-65, 0)
 
 [node name="BOX" type="ColorRect" parent="SongInfo"]
-offset_left = 1205.0
+offset_left = 1209.0
 offset_top = 200.0
 offset_right = 1905.0
 offset_bottom = 750.0
 color = Color(0.137255, 0.137255, 0.137255, 0.537255)
 
 [node name="InfoTitle" type="Label" parent="SongInfo"]
-offset_left = 1205.0
+offset_left = 1209.0
 offset_top = 100.0
 offset_right = 1855.0
-offset_bottom = 200.0
+offset_bottom = 192.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 7
@@ -49,23 +49,23 @@ vertical_alignment = 1
 justification_flags = 162
 
 [node name="PlayButton" type="Button" parent="SongInfo"]
-offset_left = 1205.0
-offset_top = 775.0
+offset_left = 1209.0
+offset_top = 768.0
 offset_right = 1905.0
-offset_bottom = 875.0
+offset_bottom = 896.0
 tooltip_text = "Play the selected song."
-theme_override_font_sizes/font_size = 75
+theme_override_font_sizes/font_size = 72
 action_mode = 0
 text = "Play"
 
 [node name="X" type="Button" parent="SongInfo"]
 offset_left = 1830.0
-offset_top = 112.5
+offset_top = 112.0
 offset_right = 1905.0
-offset_bottom = 203.5
+offset_bottom = 212.0
 scale = Vector2(1, 0.8)
 tooltip_text = "Close the detailed song menu."
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 58
 action_mode = 0
 text = "X"
 
@@ -184,25 +184,24 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="Settings" type="Button" parent="."]
-offset_left = 1515.0
-offset_top = 900.0
+offset_left = 1520.0
+offset_top = 904.0
 offset_right = 1840.0
-offset_bottom = 1000.0
+offset_bottom = 1024.0
 tooltip_text = "seting menu :3"
-theme_override_font_sizes/font_size = 75
+theme_override_font_sizes/font_size = 72
 action_mode = 0
 text = "Settings"
 
 [node name="OtherButton" type="Button" parent="."]
-visible = false
-offset_left = 1140.0
-offset_top = 900.0
-offset_right = 1465.0
-offset_bottom = 1000.0
+offset_left = 1144.0
+offset_top = 904.0
+offset_right = 1504.0
+offset_bottom = 1024.0
 tooltip_text = "seting menu :3"
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 72
 action_mode = 0
-text = "Sumthin"
+text = "Back"
 
 [node name="SongSelect" type="Node2D" parent="."]
 position = Vector2(-25, 0)
@@ -238,10 +237,10 @@ custom_minimum_size = Vector2(1000, 800)
 layout_mode = 2
 
 [node name="MenuTitle" type="Label" parent="SongSelect"]
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 1100.0
-offset_bottom = 200.0
+offset_left = 97.0
+offset_top = 80.0
+offset_right = 1097.0
+offset_bottom = 192.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 10
@@ -255,4 +254,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="SongInfo/PlayButton" to="." method="_level"]
 [connection signal="pressed" from="SongInfo/X" to="." method="_closeLevelDetails"]
 [connection signal="pressed" from="Settings" to="." method="_settings"]
-[connection signal="pressed" from="OtherButton" to="." method="_settings"]
+[connection signal="pressed" from="OtherButton" to="." method="_back"]

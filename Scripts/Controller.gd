@@ -93,4 +93,8 @@ func _level():
 	get_tree().change_scene_to_file("res://Scenes/PlayGame.tscn")
 
 func _settings():
+	global.prevScene = get_tree().current_scene.scene_file_path
 	get_tree().change_scene_to_file("res://Scenes/Settings.tscn")
+
+func _back():
+	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
