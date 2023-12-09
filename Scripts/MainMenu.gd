@@ -14,14 +14,20 @@ func _ready():
 func _process(delta):
 	pass
 
-func _settings():
-	get_tree().change_scene_to_file("res://Scenes/Settings.tscn")
-
-func _freePlay():
-	get_tree().change_scene_to_file("res://Scenes/LevelSelect.tscn")
-	
 func _storyMode():
 	pass
-
+	
+func _freePlay():
+	SceneTransitions.change_scene("res://Scenes/LevelSelect.tscn")
+	
 func _chartEditor():
 	pass
+
+func _settings():
+	SceneTransitions.change_scene("res://Scenes/Settings.tscn")
+
+
+	
+
+
+
