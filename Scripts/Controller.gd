@@ -90,7 +90,12 @@ func _findRank(ratio):
 
 # if you do not know what these do you are a lost cause :D
 func _level():
-	get_tree().change_scene_to_file("res://Scenes/PlayGame.tscn")
+	global.prevScene = get_tree().current_scene.scene_file_path
+	SceneTransitions.change_scene("res://Scenes/PlayGame.tscn")
 
 func _settings():
-	get_tree().change_scene_to_file("res://Scenes/Settings.tscn")
+	global.prevScene = get_tree().current_scene.scene_file_path
+	SceneTransitions.change_scene("res://Scenes/Settings.tscn")
+
+func _back():
+	SceneTransitions.change_scene("res://Scenes/MainMenu.tscn")

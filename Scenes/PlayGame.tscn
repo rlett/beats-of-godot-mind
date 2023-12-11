@@ -240,6 +240,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Value" type="Label" parent="FinalScore/Perfect"]
+layout_mode = 0
 offset_left = 960.0
 offset_top = 450.0
 offset_right = 1210.0
@@ -255,6 +256,7 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Text" type="Label" parent="FinalScore/Perfect"]
+layout_mode = 0
 offset_left = 400.0
 offset_top = 425.0
 offset_right = 900.0
@@ -278,6 +280,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Text" type="Label" parent="FinalScore/Good"]
+layout_mode = 0
 offset_left = 400.0
 offset_top = 535.0
 offset_right = 900.0
@@ -294,6 +297,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Value" type="Label" parent="FinalScore/Good"]
+layout_mode = 0
 offset_left = 960.0
 offset_top = 560.0
 offset_right = 1210.0
@@ -316,6 +320,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Value" type="Label" parent="FinalScore/Okay"]
+layout_mode = 0
 offset_left = 960.0
 offset_top = 670.0
 offset_right = 1210.0
@@ -331,6 +336,7 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Text" type="Label" parent="FinalScore/Okay"]
+layout_mode = 0
 offset_left = 400.0
 offset_top = 645.0
 offset_right = 900.0
@@ -354,6 +360,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Value" type="Label" parent="FinalScore/Miss"]
+layout_mode = 0
 offset_left = 960.0
 offset_top = 780.0
 offset_right = 1210.0
@@ -369,6 +376,7 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Text" type="Label" parent="FinalScore/Miss"]
+layout_mode = 0
 offset_left = 400.0
 offset_top = 755.0
 offset_right = 900.0

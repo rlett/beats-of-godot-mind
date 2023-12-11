@@ -114,6 +114,9 @@ var hitregcolors = [
 	0x200000FF,
 ]
 
+# store the previous scene for back button functionality
+var prevScene = null;
+
 func _ready():
 	# Set whether or not we playing on web
 	osvers = OS.get_name() == "Web"

@@ -216,7 +216,7 @@ func _findRank(ratio):
 
 # guess what this fucking does
 func _quit():
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	SceneTransitions.change_scene(global.prevScene)
 
 
 # -------------------------
